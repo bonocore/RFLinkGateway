@@ -3,6 +3,10 @@
 ## Purpose
 Bridge between RFLink Gateway and MQTT broker.
 
+## Changes from https://github.com/Iture/RFLinkGateway
+- Added authentication in MQTT broker connection
+- Handling reconnection on broker down / after disconnected (e.g. now it loops forever if started before MQTT broker, and it connects when it is available, useful when it's not easy to control startup order)
+
 ## Current features
 Forwarding messages received on TTY port from RFLink Gateway Arduino board
 to MQTT broker in both directions.
