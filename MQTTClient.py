@@ -32,10 +32,19 @@ class MQTTClient(multiprocessing.Process):
         self.mqttDataPrefix = config['mqtt_prefix']
         self.mqttDataFormat = config['mqtt_format']
         self._mqttConn = mqtt.Client(client_id='RFLinkGateway')
-        self._mqttConn.connect(config['mqtt_host'], port=config['mqtt_port'], keepalive=120)
+        self._mqttConn.username_pw_set(username=config['mqtt_user'],password=config['mqtt_password'])
+        self._mqttConn.reconnect_delay_set(min_delay=1, max_delay=5)
+
+        self._mqttConn.on_connect = self._on_connect
         self._mqttConn.on_disconnect = self._on_disconnect
         self._mqttConn.on_publish = self._on_publish
         self._mqttConn.on_message = self._on_message
+        self.logger.info("Before Connect Async")
+        self._mqttConn.connect_async(config['mqtt_host'], port=config['mqtt_port'], keepalive=5)
+        self.logger.info("After Connect Async")
+        self.logger.info("Before Loop Forever")
+        self._mqttConn.loop_forever(retry_first_connection=True)
+        self.logger.info("After Loop Forever")
 
     def close(self):
         self.logger.info("Closing connection")
@@ -45,6 +54,9 @@ class MQTTClient(multiprocessing.Process):
         if rc != 0:
             self.logger.error("Unexpected disconnection.")
             self._mqttConn.reconnect()
+
+    def _on_connect(self, client, userdata, flags, mid):
+         self.logger.info("Connected ")
 
     def _on_publish(self, client, userdata, mid):
         self.logger.debug("Message " + str(mid) + " published.")
@@ -89,4 +101,3 @@ class MQTTClient(multiprocessing.Process):
                     self.publish(task)
             else:
                 time.sleep(0.01)
-            self._mqttConn.loop()

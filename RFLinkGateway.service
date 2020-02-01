@@ -1,0 +1,13 @@
+[Unit]
+Description=RFLink to MQTT gateway
+After=multi-user.target
+After=mosquitto.service
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/bin/RFLinkGateway-master
+ExecStart=/usr/bin/python3 /home/pi/bin/RFLinkGateway-master/RFLinkGateway.py
+
+[Install]
+WantedBy=multi-user.target
+
