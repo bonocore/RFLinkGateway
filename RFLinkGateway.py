@@ -14,7 +14,7 @@ import SerialProcess
 logger = logging.getLogger('RFLinkGW')
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(funcName)s - %(levelname)s - %(message)s')
 logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler('/home/RFLinkGateway.log')
+fh = logging.FileHandler('./RFLinkGateway.log')
 fh.setLevel(logging.DEBUG)
 fh.setFormatter(formatter)
 logger.addHandler(fh)
@@ -33,7 +33,7 @@ def main():
 
     config = {}
     try:
-        with open('config.json') as json_data:
+        with open('configRF.json') as json_data:
             config = json.load(json_data)
     except Exception as e:
         logger.error("Config load failed")
