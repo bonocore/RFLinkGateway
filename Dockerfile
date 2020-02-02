@@ -20,10 +20,10 @@ RUN apk add --no-cache \
 
 # Copy data for add-on
 COPY run.sh /
-COPY configRF.json /
 COPY MQTTClient.py /
 COPY RFLinkGateway.py /
 COPY SerialProcess.py /
+COPY config.json /
 
 RUN chmod a+x /run.sh
 

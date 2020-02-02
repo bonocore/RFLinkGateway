@@ -7,6 +7,34 @@
   "startup": "before",
   "boot": "auto",
   "devices": ["/dev/ttyACM0:/dev/ttyACM0:rwm","/dev/ttyAMA0:/dev/ttyAMA0:rwm"],
-  "options": {},
+  "map": ["config:rw"],
+  "options": {
+    "mqtt_host": "192.168.83.101",
+    "mqtt_port": 1883,
+    "mqtt_user": "mqtt_user",
+    "mqtt_password": "",
+    "mqtt_prefix": "/data/RFLINK",
+    "mqtt_format": "json",
+    "mqtt_message_timeout": 60,
+    "rflink_tty_device": "/dev/ttyACM0",
+    "rflink_direct_output_params": [
+      "BAT",
+      "CMD",
+      "SET_LEVEL",
+      "SWITCH",
+      "HUM",
+      "CHIME",
+      "PIR",
+      "SMOKEALERT"
+    ],
+    "rflink_signed_output_params": [
+      "TEMP",
+      "WINCHL",
+      "WINTMP"
+    ],
+    "rflink_wdir_output_params": [
+      "WINDIR"
+    ]
+  },
   "schema": {}
 }
