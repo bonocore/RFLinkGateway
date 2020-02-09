@@ -12,7 +12,7 @@
     "mqtt_host": "192.168.83.101",
     "mqtt_port": 1883,
     "mqtt_user": "mqtt_user",
-    "mqtt_password": "PWDqtt2020!",
+    "mqtt_password": "pwd",
     "mqtt_prefix": "/data/RFLINK",
     "mqtt_format": "json",
     "mqtt_message_timeout": 60,
